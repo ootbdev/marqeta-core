@@ -1,0 +1,44 @@
+version: 2.1
+jobs:
+  test_only:
+    docker:
+      - image: circleci/node:10.15.3
+    working_directory: ~/project
+    steps:
+      - checkout
+      - run:
+          name: Fetch dependencies
+          command: yarn install --no-progress --non-interactive --silent --pure-lockfile
+      - run:
+          name: Run test suite
+          command: yarn test_ci
+  test_build_deploy:
+    docker:
+      - image: circleci/node:10.15.3
+    working_directory: ~/project
+    steps:
+      - checkout
+      - run:
+          name: Fetch dependencies
+          command: yarn install --no-progress --non-interactive --silent --pure-lockfile
+      - run:
+          name: Run test suite
+          command: yarn test_ci
+      - aws-cli/setup:
+          profile-name: ess
+      - run:
+          name: Pre-Publish
+          command: yarn prepublish
+workflows:
+  test-build-deploy:
+    jobs:
+    - test_only:
+        filters:
+          branches:
+            ignore:
+              - /.*-skip-test[s]$/
+              - master
+    - test_build_deploy:
+        filters:
+          branches:
+            only: master
