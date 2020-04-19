@@ -1,0 +1,26 @@
+{
+  "name": "marqeta-core",
+  "version": "1.0.0",
+  "description": "Server-side Javascript client for the Marqeta Core API",
+  "main": "index.js",
+  "keywords": [
+    "marqeta",
+    "payment processing",
+    "fintech",
+    "credit cards",
+    "virtual cards",
+    "api"
+  ],
+  "homepage": "https://github.com/ootbdev/marqeta-core",
+  "bugs": "https://github.com/ootbdev/marqeta-core/isses",
+  "contributors": [
+    "Alvin Lee <alvin@ootbdev.com>"
+  ],
+  "repository": {
+    "url": "git@github.com:ootbdev/marqeta-core.git",
+    "type": "git"
+  },
+  "author": "Alvin Lee <alvin@ootbdev.com>",
+  "license": "MIT",
+  "private": false
+}
