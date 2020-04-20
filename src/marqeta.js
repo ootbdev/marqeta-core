@@ -1,16 +1,20 @@
-function Marqeta (appToken, options = {}) {
-  this._api = {
+function Marqeta (appToken, config = {}) {
+  if (!(this instanceof Marqeta)) {
+    return new Marqeta(appToken, config)
+  }
+
+  this._config = {
     appToken,
-    masterAccessToken: options.masterAccessToken
+    masterAccessToken: config.masterAccessToken
   }
 }
 
 Marqeta.prototype = {
-  getAppToken () {
-    return this._api.appToken
+  getConfig (key) {
+    return this._config[key]
   },
-  getMasterAccessToken () {
-    return this._api.masterAccessToken
+  setConfig (key, value) {
+    this._config[key] = value
   }
 }
 

@@ -1,15 +1,24 @@
 module.exports = {
-  'env': {
-    'es6': true,
-    'jest': true
+  env: {
+    browser: true,
+    es6: true,
+    jest: true
   },
-  'extends': 'standard',
-  'globals': {
+  extends: [
+    'standard'
+  ],
+  globals: {
+    Atomics: 'readonly',
+    SharedArrayBuffer: 'readonly'
   },
-  'parserOptions': {
-    'ecmaVersion': 2018,
-    'sourceType': 'module'
+  parser: '@typescript-eslint/parser',
+  parserOptions: {
+    ecmaVersion: 2018,
+    sourceType: 'module'
   },
-  'rules': {
+  plugins: [
+    '@typescript-eslint'
+  ],
+  rules: {
   }
 }
