@@ -24,12 +24,20 @@
   "license": "MIT",
   "private": false,
   "scripts": {
-    "_jest": "jest --testPathIgnorePatterns lib",
+    "_jest": "jest",
     "prepublish": "babel -d lib src",
     "lint": "yarn eslint --ignore-path ./.gitignore ./src",
     "test": "yarn lint && yarn _jest",
     "test_no_lint": "yarn _jest",
     "test_ci": "yarn _jest --ci"
+  },
+  "jest": {
+    "roots": [
+      "<rootDir>/src"
+    ],
+    "setupFilesAfterEnv": [
+      "<rootDir>/config/jest/initialize.js"
+    ]
   },
   "devDependencies": {
     "@babel/cli": "^7.8.4",
@@ -38,8 +46,6 @@
     "@babel/plugin-transform-object-assign": "^7.8.3",
     "@babel/plugin-transform-runtime": "^7.9.0",
     "@babel/preset-env": "^7.9.5",
-    "@typescript-eslint/eslint-plugin": "^2.28.0",
-    "@typescript-eslint/parser": "^2.28.0",
     "babel-jest": "^25.4.0",
     "eslint": "^6.8.0",
     "eslint-config-standard": "^14.1.1",
@@ -50,7 +56,6 @@
     "eslint-plugin-standard": "^4.0.1",
     "faker": "^4.1.0",
     "jest": "^25.3.0",
-    "standard": "^14.3.3",
-    "typescript": "^3.8.3"
+    "standard": "^14.3.3"
   }
 }
