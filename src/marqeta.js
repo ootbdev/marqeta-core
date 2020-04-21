@@ -1,7 +1,8 @@
 import { ArgumentError } from './utils/CustomErrors'
-const CONFIG_KEYS = [
-  'masterAccessToken'
-]
+import API from './API'
+
+const CONFIG_KEYS = ['masterAccessToken', 'baseURL']
+const BASE_URL = 'https://sandbox-api.marqeta.com/v3'
 
 function Marqeta (appToken, config = {}) {
   if (!(this instanceof Marqeta)) {
@@ -17,6 +18,7 @@ function Marqeta (appToken, config = {}) {
 
   this._config = {
     appToken,
+    baseURL: BASE_URL,
     ...config
   }
 }
@@ -32,11 +34,26 @@ Marqeta.prototype = {
     if (key !== 'appToken') {
       assertValidConfigKey(key)
     }
-    return this._config[key]
+    return Marqeta.prototype._config[key]
   },
   setConfig (key, value) {
     assertValidConfigKey(key)
     this._config[key] = value
+  },
+  async ping () {
+    return API.ping({ baseURL: this.getConfig('baseURL') })
+  },
+  Users: {
+    test () {
+      console.log(_this)
+    },
+    async list () {
+      return API.Users.list({
+        baseURL: this.getConfig('baseURL'),
+        appToken: this.getConfig('appToken'),
+        accessToken: this.getConfig('masterAccessToken')
+      })
+    }
   }
 }
 

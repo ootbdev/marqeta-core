@@ -25,11 +25,13 @@
   "private": false,
   "scripts": {
     "_jest": "jest",
+    "_dev_env": "env-cmd -f ./config/environments/development.env",
     "prepublish": "babel -d lib src",
     "lint": "yarn eslint --ignore-path ./.gitignore ./src",
     "test": "yarn lint && yarn _jest",
     "test_no_lint": "yarn _jest",
-    "test_ci": "yarn _jest --ci"
+    "test_ci": "yarn _jest --ci",
+    "cli": "yarn _dev_env babel-node --config-file ./.babelrc"
   },
   "jest": {
     "roots": [
@@ -42,11 +44,13 @@
   "devDependencies": {
     "@babel/cli": "^7.8.4",
     "@babel/core": "^7.9.0",
+    "@babel/node": "^7.8.7",
     "@babel/plugin-proposal-object-rest-spread": "^7.9.5",
     "@babel/plugin-transform-object-assign": "^7.8.3",
     "@babel/plugin-transform-runtime": "^7.9.0",
     "@babel/preset-env": "^7.9.5",
     "babel-jest": "^25.4.0",
+    "env-cmd": "^10.1.0",
     "eslint": "^6.8.0",
     "eslint-config-standard": "^14.1.1",
     "eslint-plugin-import": "^2.20.2",
@@ -57,5 +61,8 @@
     "faker": "^4.1.0",
     "jest": "^25.3.0",
     "standard": "^14.3.3"
+  },
+  "dependencies": {
+    "axios": "^0.19.2"
   }
 }
