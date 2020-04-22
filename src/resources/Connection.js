@@ -1,16 +1,13 @@
-import { makeRequest } from '../utils'
+import BaseResource from './BaseResource'
 
-function Connection (marqeta) {
-  if (!(this instanceof Connection)) {
-    return new Connection(marqeta)
+class Connection extends BaseResource {
+  constructor (opts) {
+    super(opts)
   }
-  this._marqeta = marqeta
-}
 
-Connection.prototype = {
   async ping () {
-    return makeRequest({
-      url: `${this._marqeta.getConfig('baseURL')}/ping`,
+    return this._makeRequest( {
+      path: '/ping',
       method: 'GET'
     })
   }

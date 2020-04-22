@@ -1,9 +1,8 @@
 import { ArgumentError } from './utils/CustomErrors'
 
-const resources = require('./resources')
-
-const CONFIG_KEYS = ['masterAccessToken', 'baseURL']
-const BASE_URL = 'https://sandbox-api.marqeta.com/v3'
+import resources from './resources'
+import { getConfig, setConfig } from './utils'
+import { BASE_URL } from './constants'
 
 function Marqeta (appToken, config = {}) {
   if (!(this instanceof Marqeta)) {
@@ -13,41 +12,27 @@ function Marqeta (appToken, config = {}) {
   if (typeof appToken !== 'string') {
     throw new ArgumentError('client initialization requires appToken as first argument')
   }
-  for (const key of Object.keys(config)) {
-    assertValidConfigKey(key)
-  }
 
   this._config = {
-    appToken,
+    appToken: appToken,
     baseURL: BASE_URL,
-    ...config
   }
 
-  this._prepResources()
-}
+  for (const key of Object.keys(config)) {
+    this.setConfig(key, config[key])
+  }
 
-const assertValidConfigKey = (key) => {
-  if (CONFIG_KEYS.indexOf(key) === -1) {
-    throw new ArgumentError(`'${key}' is not a valid config key`)
+  for (const name in resources) {
+    this[name] = new resources[name]({ config: this._config })
   }
 }
 
 Marqeta.prototype = {
   getConfig (key) {
-    if (key !== 'appToken') {
-      assertValidConfigKey(key)
-    }
-    return this._config[key]
+    return getConfig(this._config, key)
   },
   setConfig (key, value) {
-    assertValidConfigKey(key)
-    this._config[key] = value
-  },
-  _prepResources () {
-    this.resources = {}
-    for (const name in resources) {
-      this.resources[name] = resources[name](this)
-    }
+    return setConfig(this._config, key, value)
   }
 }
 
