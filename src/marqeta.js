@@ -1,5 +1,6 @@
 import { ArgumentError } from './utils/CustomErrors'
-import API from './API'
+
+const resources = require('./resources')
 
 const CONFIG_KEYS = ['masterAccessToken', 'baseURL']
 const BASE_URL = 'https://sandbox-api.marqeta.com/v3'
@@ -21,6 +22,8 @@ function Marqeta (appToken, config = {}) {
     baseURL: BASE_URL,
     ...config
   }
+
+  this._prepResources()
 }
 
 const assertValidConfigKey = (key) => {
@@ -34,25 +37,16 @@ Marqeta.prototype = {
     if (key !== 'appToken') {
       assertValidConfigKey(key)
     }
-    return Marqeta.prototype._config[key]
+    return this._config[key]
   },
   setConfig (key, value) {
     assertValidConfigKey(key)
     this._config[key] = value
   },
-  async ping () {
-    return API.ping({ baseURL: this.getConfig('baseURL') })
-  },
-  Users: {
-    test () {
-      console.log(_this)
-    },
-    async list () {
-      return API.Users.list({
-        baseURL: this.getConfig('baseURL'),
-        appToken: this.getConfig('appToken'),
-        accessToken: this.getConfig('masterAccessToken')
-      })
+  _prepResources () {
+    this.resources = {}
+    for (const name in resources) {
+      this.resources[name] = resources[name](this)
     }
   }
 }
