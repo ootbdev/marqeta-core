@@ -1,7 +1,7 @@
 import { getConfig, makeRequest, CustomErrors } from '../utils'
 
 class BaseResource {
-  constructor({ config }) {
+  constructor ({ config }) {
     this._config = config
   }
 
