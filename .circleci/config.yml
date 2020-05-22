@@ -12,11 +12,17 @@ jobs:
       - run:
           name: Run test suite
           command: yarn test_ci
+      - persist_to_workspace:
+          root: ~/project
+          paths:
+            - .
   open-pull-request:
     docker:
       - image: circleci/node:10.15.3
     working_directory: ~/project
     steps:
+      - attach_workspace:
+          at: ~/project
       - run:
           name: Output current directory
           command: |
@@ -27,6 +33,8 @@ jobs:
       - image: circleci/node:10.15.3
     working_directory: ~/project
     steps:
+      - attach_workspace:
+          at: ~/project
       - run:
           name: Pre-Publish
           command: yarn prepublish
@@ -35,9 +43,12 @@ jobs:
       - image: circleci/node:10.15.3
     working_directory: ~/project
     steps:
+      - attach_workspace:
+          at: ~/project
       - run:
           name: Deploy
           command: |
+            ls -al
             echo 'Here is the part where I deploy...''
 
 workflows:
