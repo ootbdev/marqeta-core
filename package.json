@@ -39,6 +39,14 @@
     ],
     "setupFilesAfterEnv": [
       "<rootDir>/config/jest/initialize.js"
+    ],
+    "collectCoverage": true,
+    "collectCoverageFrom": [
+      "<rootDir>/src/**/*.js"
+    ],
+    "coveragePathIgnorePatterns": [
+      "node_modules",
+      ".test.js"
     ]
   },
   "devDependencies": {
@@ -60,6 +68,7 @@
     "eslint-plugin-standard": "^4.0.1",
     "faker": "^4.1.0",
     "jest": "^25.3.0",
+    "json-loader": "^0.5.7",
     "standard": "^14.3.3"
   },
   "dependencies": {
