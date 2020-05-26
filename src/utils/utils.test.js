@@ -1,4 +1,4 @@
-import { getConfig, setConfig, CustomErrors } from './'
+import { assertValidConfigKey, getConfig, setConfig, CustomErrors } from './'
 import { CONFIG_KEYS } from '../constants'
 import faker from 'faker'
 
@@ -10,6 +10,20 @@ const validConfig = {
 }
 
 describe('assertValidConfigKey', () => {
+  describe('when given key is valid', () => {
+    for (const value of CONFIG_KEYS) {
+      SharedTests.itDoesNotThrowArgumentError({
+        trigger: () => assertValidConfigKey(value)
+      })
+    }
+  })
+  describe('when given key is invalid', () => {
+    const invalidKey = 'not-a-valid-key'
+    SharedTests.itThrowsArgumentError({
+      trigger: () => assertValidConfigKey(invalidKey),
+      message: `'${invalidKey}' is not a valid config key`
+    })
+  })
 })
 describe('getConfig()', () => {
   describe('arguments', () => {

@@ -2,3 +2,4 @@
 .vscode
 /config/environments/development.env
 /stripe-node
+coverage

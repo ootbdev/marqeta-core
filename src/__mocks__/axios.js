@@ -45,7 +45,9 @@ const request = ({ path, method }) => {
 }
 
 export default {
+  delete: jest.fn(path => request({ path, method: 'delete' })),
   get: jest.fn(path => request({ path, method: 'get' })),
+  patch: jest.fn(path => request({ path, method: 'patch' })),
   post: jest.fn(path => request({ path, method: 'post' })),
   put: jest.fn(path => request({ path, method: 'put' }))
 }
