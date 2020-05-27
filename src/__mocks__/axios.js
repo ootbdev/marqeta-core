@@ -36,18 +36,39 @@ const response = ({ status, body = {} }) => {
   }
 }
 
-const request = ({ path, method }) => {
-  const spec = getSpec({ path: stripPath(path), method })
+const request = ({ url, method }) => {
+  const spec = getSpec({ path: stripPath(url), method })
   if (spec) {
     return response({ status: 200, body: { success: true } })
   }
   return response({ status: 404 })
 }
 
-export default {
-  delete: jest.fn(path => request({ path, method: 'delete' })),
-  get: jest.fn(path => request({ path, method: 'get' })),
-  patch: jest.fn(path => request({ path, method: 'patch' })),
-  post: jest.fn(path => request({ path, method: 'post' })),
-  put: jest.fn(path => request({ path, method: 'put' }))
-}
+const sendDelete = jest.fn(url => request({ url, method: 'delete' }))
+const sendGet = jest.fn(url => request({ url, method: 'get' }))
+const sendPatch = jest.fn(url => request({ url, method: 'patch' }))
+const sendPost = jest.fn(url => request({ url, method: 'post' }))
+const sendPut = jest.fn(url => request({ url, method: 'put' }))
+
+const axios = jest.fn(config => {
+  switch ((config.method || 'get').toLowerCase()) {
+    case 'post':
+      return sendPost(config.url)
+    case 'patch':
+      return sendPatch(config.url)
+    case 'put':
+      return sendPut(config.url)
+    case 'delete':
+      return sendDelete(config.url)
+    default:
+      return sendGet(config.url)
+  }
+})
+
+axios.get = sendGet
+axios.post = sendPost
+axios.patch = sendPatch
+axios.put = sendPut
+axios.delete = sendDelete
+
+export default axios

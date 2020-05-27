@@ -32,8 +32,7 @@ const makeRequest = async ({ url, method, params = {}, body = {}, appToken, acce
     } else if (Object.keys(body).length) {
       config.data = body
     }
-    const request = await axios(config)
-    return request.data
+    return axios(config)
   } catch (err) {
     console.log(err)
   }

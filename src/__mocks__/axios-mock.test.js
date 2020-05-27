@@ -14,30 +14,6 @@ const itRespondsWithStatus = ({ method, path, status }) => {
   })
 }
 
-/*
-const itRespondsWithValueInBody = ({ method, path, key, value }) => {
-  it(`responds with "${key}"="${value}" in body`, async (done) => {
-    const response = await sendRequest({ method, path })
-    expect(response.body[key]).toEqual(value)
-    done()
-  })
-}
-
-const itRespondsWithBodyStructure = ({ method, path, body }) => {
-  it('responds with matching body structure', async (done) => {
-    const response = await sendRequest({ method, path })
-    expect(response).not.toBeNull()
-    for (const key in body) {
-      const spec = body[key]
-      const value = response.body[key]
-      expect(value).toBeDefined()
-      expect(typeof value).toEqual(spec.type.toLowerCase())
-    }
-    done()
-  })
-}
-*/
-
 describe('Axios mock', () => {
   describe('GET ping/', () => {
     const method = 'GET'
