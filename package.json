@@ -28,7 +28,8 @@
     "_dev_env": "env-cmd -f ./config/environments/development.env",
     "prepublish": "babel -d lib src",
     "lint": "yarn eslint --ignore-path ./.gitignore ./src",
-    "test": "yarn lint && yarn _jest",
+    "test": "yarn lint && yarn _jest --coverage false",
+    "test_coverage": "yarn lint && yarn _jest --coverage true",
     "test_no_lint": "yarn _jest",
     "test_ci": "yarn _jest --ci --coverage false",
     "cli": "yarn _dev_env babel-node --config-file ./.babelrc"
@@ -46,6 +47,7 @@
     ],
     "coveragePathIgnorePatterns": [
       "node_modules",
+      "src/testSupport",
       ".test.js"
     ]
   },
