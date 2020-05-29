@@ -1,18 +1,16 @@
-import { ArgumentError } from '../../utils/CustomErrors'
 const expectation = (options) => {
-  it('throws an ArgumentError', async () => {
-    expect(() => options.trigger()).toThrow(ArgumentError)
-  })
-  if (options.message) {
-    it('sets correct message for the ArgumentError', async () => {
-      expect.assertions(1)
-      try {
-        options.trigger()
-      } catch (err) {
+  it(`throws an ArgumentError${options.message ? ' with correct message' : null}`, async (done) => {
+    expect.assertions(options.message ? 2 : 1)
+    try {
+      await options.trigger()
+    } catch (err) {
+      expect(err.name).toEqual('ArgumentError')
+      if (options.message) {
         expect(err.message).toEqual(options.message)
       }
-    })
-  }
+    }
+    done()
+  })
 }
 
 export default expectation
