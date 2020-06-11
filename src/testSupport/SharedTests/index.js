@@ -4,6 +4,8 @@ import itDoesNotThrowArgumentError from './itDoesNotThrowArgumentError'
 import itHasKeyDefined from './itHasKeyDefined'
 import itCallsAxios from './itCallsAxios'
 import itDoesNotCallAxios from './itDoesNotCallAxios'
+import itGets from './itGets'
+import itPostsWithData from './itPostsWithData'
 
 export default {
   itThrowsArgumentError,
@@ -11,5 +13,7 @@ export default {
   itDoesNotThrowArgumentError,
   itHasKeyDefined,
   itCallsAxios,
-  itDoesNotCallAxios
+  itDoesNotCallAxios,
+  itGets,
+  itPostsWithData
 }
